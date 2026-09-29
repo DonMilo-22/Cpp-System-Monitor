@@ -52,7 +52,8 @@ void render() {
     std::cout << "C++ System Monitor\n==================\n";
     std::cout << std::fixed << std::setprecision(1);
     std::cout << "CPU:       " << cpuUsage() << "%\n";
-    std::cout << "Memory:    " << used << " / " << total << " GB\n";
+    double memoryPercent = total > 0 ? (used / total) * 100.0 : 0.0;
+    std::cout << "Memory:    " << used << " / " << total << " GB (" << memoryPercent << "%)\n";
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
     std::cout << "Processes: " << processCount() << "\n";
 }
