@@ -52,3 +52,7 @@ The program reads Linux virtual files such as `/proc/stat`, `/proc/meminfo` and 
 ## 📄 License
 
 MIT.
+
+## 🆕 Recent changes
+
+- Memory output now shows the percentage of RAM currently in use.
