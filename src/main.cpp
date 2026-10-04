@@ -34,6 +34,16 @@ void memory(double& usedGb, double& totalGb) {
     totalGb = total / 1048576.0; usedGb = (total - available) / 1048576.0;
 }
 
+void swap(double& usedGb, double& totalGb) {
+    std::ifstream f("/proc/meminfo");
+    std::string key, unit; long long value, total=0, free=0;
+    while (f >> key >> value >> unit) {
+        if (key == "SwapTotal:") total = value;
+        if (key == "SwapFree:") free = value;
+    }
+    totalGb = total / 1048576.0; usedGb = (total - free) / 1048576.0;
+}
+
 double uptimeHours() { std::ifstream f("/proc/uptime"); double s=0; f >> s; return s/3600.0; }
 
 int processCount() {
@@ -54,6 +64,8 @@ void render() {
     std::cout << "CPU:       " << cpuUsage() << "%\n";
     double memoryPercent = total > 0 ? (used / total) * 100.0 : 0.0;
     std::cout << "Memory:    " << used << " / " << total << " GB (" << memoryPercent << "%)\n";
+    double swapUsed, swapTotal; swap(swapUsed,swapTotal);
+    std::cout << "Swap:      " << swapUsed << " / " << swapTotal << " GB (" << (swapTotal > 0 ? swapUsed / swapTotal * 100 : 0) << "%)\n";
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
     std::cout << "Processes: " << processCount() << "\n";
 }
