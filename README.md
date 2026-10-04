@@ -55,4 +55,10 @@ MIT.
 
 ## 🆕 Recent changes
 
+### 2026-10-04
+
+- Added swap memory usage and its percentage to the terminal monitor.
+
+### Previous update
+
 - Memory output now shows the percentage of RAM currently in use.
