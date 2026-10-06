@@ -55,6 +55,12 @@ MIT.
 
 ## 🆕 Recent changes
 
+### 2026-10-05
+
+- Added the 1, 5 and 15 minute Linux load averages from `/proc/loadavg`.
+
+### 2026-10-04
+
 ### 2026-10-04
 
 - Added swap memory usage and its percentage to the terminal monitor.
