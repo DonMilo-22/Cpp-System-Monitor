@@ -55,11 +55,13 @@ MIT.
 
 ## 🆕 Recent changes
 
+### 2026-10-06
+
+- Added `--no-clear` to keep previous readings visible when running continuously.
+
 ### 2026-10-05
 
 - Added the 1, 5 and 15 minute Linux load averages from `/proc/loadavg`.
-
-### 2026-10-04
 
 ### 2026-10-04
 
