@@ -62,9 +62,9 @@ int processCount() {
     return count;
 }
 
-void render() {
+void render(bool clear) {
     double used,total; memory(used,total);
-    std::cout << "\033[2J\033[H";
+    if (clear) std::cout << "\033[2J\033[H";
     std::cout << "C++ System Monitor\n==================\n";
     std::cout << std::fixed << std::setprecision(1);
     std::cout << "CPU:       " << cpuUsage() << "%\n";
@@ -78,7 +78,7 @@ void render() {
 }
 
 int main(int argc, char** argv) {
-    bool once=false; int interval=1;
-    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--once") once=true; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
-    do { render(); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
+    bool once=false, clear=true; int interval=1;
+    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
+    do { render(clear); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
 }
