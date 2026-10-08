@@ -55,6 +55,10 @@ MIT.
 
 ## 🆕 Recent changes
 
+### 2026-10-07
+
+- Each monitor refresh now prints a local timestamp so continuous logs are easier to read.
+
 ### 2026-10-06
 
 - Added `--no-clear` to keep previous readings visible when running continuously.
