@@ -1,4 +1,5 @@
 #include <chrono>
+#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -65,7 +66,11 @@ int processCount() {
 void render(bool clear) {
     double used,total; memory(used,total);
     if (clear) std::cout << "\033[2J\033[H";
+    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::tm local{};
+    localtime_r(&now, &local);
     std::cout << "C++ System Monitor\n==================\n";
+    std::cout << "Updated:   " << std::put_time(&local, "%Y-%m-%d %H:%M:%S") << "\n";
     std::cout << std::fixed << std::setprecision(1);
     std::cout << "CPU:       " << cpuUsage() << "%\n";
     double memoryPercent = total > 0 ? (used / total) * 100.0 : 0.0;
