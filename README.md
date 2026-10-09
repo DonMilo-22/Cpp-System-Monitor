@@ -55,6 +55,10 @@ MIT.
 
 ## 🆕 Recent changes
 
+### 2026-10-08
+
+- Added root filesystem disk usage to the live system summary.
+
 ### 2026-10-07
 
 - Each monitor refresh now prints a local timestamp so continuous logs are easier to read.
