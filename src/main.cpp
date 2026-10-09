@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include <sys/statvfs.h>
 
 struct CpuSample { long long idle{}, total{}; };
 
@@ -51,6 +52,12 @@ std::string loadAverage() {
     return one + " / " + five + " / " + fifteen;
 }
 
+double rootDiskUsage() {
+    struct statvfs s{};
+    if (statvfs("/", &s) != 0 || s.f_blocks == 0) return 0.0;
+    return 100.0 * (1.0 - static_cast<double>(s.f_bavail) / s.f_blocks);
+}
+
 double uptimeHours() { std::ifstream f("/proc/uptime"); double s=0; f >> s; return s/3600.0; }
 
 int processCount() {
@@ -78,6 +85,7 @@ void render(bool clear) {
     double swapUsed, swapTotal; swap(swapUsed,swapTotal);
     std::cout << "Swap:      " << swapUsed << " / " << swapTotal << " GB (" << (swapTotal > 0 ? swapUsed / swapTotal * 100 : 0) << "%)\n";
     std::cout << "Load avg:  " << loadAverage() << " (1m / 5m / 15m)\n";
+    std::cout << "Disk /:    " << rootDiskUsage() << "% used\n";
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
     std::cout << "Processes: " << processCount() << "\n";
 }
