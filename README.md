@@ -55,6 +55,10 @@ MIT.
 
 ## 🆕 Recent changes
 
+### 2026-10-09
+
+- Added the machine hostname to the monitor header.
+
 ### 2026-10-08
 
 - Added root filesystem disk usage to the live system summary.
