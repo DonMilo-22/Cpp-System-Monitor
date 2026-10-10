@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 #include <sys/statvfs.h>
+#include <unistd.h>
 
 struct CpuSample { long long idle{}, total{}; };
 
@@ -72,11 +73,14 @@ int processCount() {
 
 void render(bool clear) {
     double used,total; memory(used,total);
+    char hostname[256]{};
+    gethostname(hostname, sizeof(hostname));
     if (clear) std::cout << "\033[2J\033[H";
     auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     std::tm local{};
     localtime_r(&now, &local);
     std::cout << "C++ System Monitor\n==================\n";
+    std::cout << "Host:      " << hostname << "\n";
     std::cout << "Updated:   " << std::put_time(&local, "%Y-%m-%d %H:%M:%S") << "\n";
     std::cout << std::fixed << std::setprecision(1);
     std::cout << "CPU:       " << cpuUsage() << "%\n";
