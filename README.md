@@ -66,6 +66,10 @@ Desarrollado por [DonMilo-22](https://github.com/DonMilo-22).
 
 Licencia: MIT.
 
+## Actualización 2026-10-12
+
+- Added the number of logical CPU threads reported by the system.
+
 ## Historial
 
 Consulta [CHANGELOG.md](CHANGELOG.md) para ver las actualizaciones.
