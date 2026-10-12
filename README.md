@@ -1,84 +1,71 @@
-# 🖥️ C++ System Monitor
+# C++ System Monitor
 
-> Lightweight Linux system monitor written in modern C++.
+Monitor de recursos para Linux, desarrollado con C++17.
 
-![C++](https://img.shields.io/badge/C%2B%2B-17-00599C?logo=cplusplus&logoColor=white)
-![CMake](https://img.shields.io/badge/CMake-3.16%2B-064F8C?logo=cmake)
-![License](https://img.shields.io/badge/license-MIT-green)
+Lee métricas del sistema directamente desde `/proc` y muestra una vista de terminal sin dependencias externas de ejecución.
 
-A compact terminal utility that reads Linux system information directly from `/proc` and displays CPU load, memory usage, uptime and process count.
+## Vista de terminal
 
-## ✨ Features
+![Salida real del monitor en Linux](docs/terminal.webp)
 
-- CPU usage sampling
-- RAM usage and totals
-- System uptime
-- Running process count
-- Refresh loop with configurable interval
-- No third-party runtime dependencies
+Imagen de la salida real de una ejecución local; los valores dependen del equipo y del momento de muestreo.
 
-## 🚀 Build
+## Funciones actuales
+
+- Hostname y fecha/hora local de cada lectura.
+- Porcentaje de CPU calculado con dos muestras separadas por 250 ms.
+- RAM y swap usadas, totales y porcentajes.
+- Carga promedio de 1, 5 y 15 minutos.
+- Porcentaje de uso del sistema de archivos raíz.
+- Tiempo encendido y conteo de directorios de procesos en `/proc`.
+- Lectura única o actualización continua, con opción de conservar lecturas anteriores.
+
+## Requisitos
+
+Linux, compilador compatible con C++17 y CMake 3.16 o superior. Esta implementación utiliza interfaces de Linux; Windows y macOS no están soportados.
+
+## Instalación y uso
 
 ```bash
+git clone https://github.com/DonMilo-22/Cpp-System-Monitor.git
+cd Cpp-System-Monitor
 cmake -S . -B build
 cmake --build build
-./build/system-monitor
+./build/system-monitor --once --no-clear
 ```
 
-Run once:
+## Opciones
+
+| Opción | Uso |
+|---|---|
+| `--once` | Muestra una lectura y termina. |
+| `--interval <segundos>` | Espera entre lecturas; predeterminado 1 y mínimo efectivo 1. |
+| `--no-clear` | Conserva las lecturas anteriores en terminal. |
 
 ```bash
-./build/system-monitor --once
+./build/system-monitor --interval 2 --no-clear
 ```
 
-Custom refresh interval:
+Interrumpe el modo continuo con `Ctrl+C`.
 
-```bash
-./build/system-monitor --interval 2
-```
+## Cómo funciona
 
-## 🧠 How it works
+Consulta `/proc/stat`, `/proc/meminfo`, `/proc/uptime` y `/proc/loadavg`. RAM usada se calcula restando memoria disponible de la total; la carga promedio no es un porcentaje de CPU. El disco raíz se consulta con `statvfs`.
 
-The program reads Linux virtual files such as `/proc/stat`, `/proc/meminfo` and `/proc/uptime`. CPU usage is calculated from two samples instead of relying on an external library.
+## Almacenamiento y límites
 
-## 🛠️ Requirements
+No almacena métricas. La frecuencia total incluye el muestreo de CPU además de la espera configurada. El programa muestra `GB`, aunque convierte memoria usando divisores binarios. El conteo de procesos refleja directorios numéricos de `/proc`, no únicamente procesos ejecutándose en CPU. En contenedores, la vista de `/proc` puede diferir de los límites asignados al contenedor.
 
-- Linux
-- C++17 compiler
-- CMake 3.16+
+## Comprobaciones
 
-> Windows and macOS expose system metrics differently, so this implementation intentionally targets Linux.
+La compilación y `./build/system-monitor --once --no-clear` permiten comprobar una lectura local; no sustituyen una suite automatizada.
 
-## 📄 License
+## Autor y licencia
 
-MIT.
+Desarrollado por [DonMilo-22](https://github.com/DonMilo-22).
 
-## 🆕 Recent changes
+Licencia: MIT.
 
-### 2026-10-09
+## Historial
 
-- Added the machine hostname to the monitor header.
-
-### 2026-10-08
-
-- Added root filesystem disk usage to the live system summary.
-
-### 2026-10-07
-
-- Each monitor refresh now prints a local timestamp so continuous logs are easier to read.
-
-### 2026-10-06
-
-- Added `--no-clear` to keep previous readings visible when running continuously.
-
-### 2026-10-05
-
-- Added the 1, 5 and 15 minute Linux load averages from `/proc/loadavg`.
-
-### 2026-10-04
-
-- Added swap memory usage and its percentage to the terminal monitor.
-
-### Previous update
-
-- Memory output now shows the percentage of RAM currently in use.
+Consulta [CHANGELOG.md](CHANGELOG.md) para ver las actualizaciones.
