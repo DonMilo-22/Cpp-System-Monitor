@@ -84,6 +84,7 @@ void render(bool clear) {
     std::cout << "Updated:   " << std::put_time(&local, "%Y-%m-%d %H:%M:%S") << "\n";
     std::cout << std::fixed << std::setprecision(1);
     std::cout << "CPU:       " << cpuUsage() << "%\n";
+    std::cout << "CPU threads: " << std::thread::hardware_concurrency() << "\n";
     double memoryPercent = total > 0 ? (used / total) * 100.0 : 0.0;
     std::cout << "Memory:    " << used << " / " << total << " GB (" << memoryPercent << "%)\n";
     double swapUsed, swapTotal; swap(swapUsed,swapTotal);
