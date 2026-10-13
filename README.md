@@ -70,6 +70,10 @@ Licencia: MIT.
 
 - Added the number of logical CPU threads reported by the system.
 
+## Actualización adicional 2026-10-12
+
+- Added a small process-to-logical-CPU ratio to help contextualize the process count.
+
 ## Historial
 
 Consulta [CHANGELOG.md](CHANGELOG.md) para ver las actualizaciones.
