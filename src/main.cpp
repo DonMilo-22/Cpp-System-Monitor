@@ -92,7 +92,10 @@ void render(bool clear) {
     std::cout << "Load avg:  " << loadAverage() << " (1m / 5m / 15m)\n";
     std::cout << "Disk /:    " << rootDiskUsage() << "% used\n";
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
-    std::cout << "Processes: " << processCount() << "\n";
+    int processes = processCount();
+    unsigned int threads = std::thread::hardware_concurrency();
+    std::cout << "Processes: " << processes << "\n";
+    if (threads > 0) std::cout << "Processes / CPU thread: " << static_cast<double>(processes) / threads << "\n";
 }
 
 int main(int argc, char** argv) {
