@@ -92,7 +92,7 @@ void render(bool clear) {
     std::cout << "Load avg:  " << loadAverage() << " (1m / 5m / 15m)\n";
     double diskUsed = rootDiskUsage();
     std::cout << "Disk /:    " << diskUsed << "% used\\n";
-    if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\\n"
+    if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\n"
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
     int processes = processCount();
     unsigned int threads = std::thread::hardware_concurrency();
