@@ -90,7 +90,9 @@ void render(bool clear) {
     double swapUsed, swapTotal; swap(swapUsed,swapTotal);
     std::cout << "Swap:      " << swapUsed << " / " << swapTotal << " GB (" << (swapTotal > 0 ? swapUsed / swapTotal * 100 : 0) << "%)\n";
     std::cout << "Load avg:  " << loadAverage() << " (1m / 5m / 15m)\n";
-    std::cout << "Disk /:    " << rootDiskUsage() << "% used\n";
+    double diskUsed = rootDiskUsage();
+    std::cout << "Disk /:    " << diskUsed << "% used\\n";
+    if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\\n"
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
     int processes = processCount();
     unsigned int threads = std::thread::hardware_concurrency();
