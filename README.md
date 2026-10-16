@@ -81,3 +81,7 @@ Consulta [CHANGELOG.md](CHANGELOG.md) para ver las actualizaciones.
 ## Actualización 2026-10-14
 
 - Added a warning when root disk usage reaches 90% or more.
+
+## Actualización 2026-10-15
+
+- Added a warning when memory usage reaches 90%; also corrected the disk-usage line and completed its warning statement.
