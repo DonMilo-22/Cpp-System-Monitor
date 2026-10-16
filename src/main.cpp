@@ -87,12 +87,13 @@ void render(bool clear) {
     std::cout << "CPU threads: " << std::thread::hardware_concurrency() << "\n";
     double memoryPercent = total > 0 ? (used / total) * 100.0 : 0.0;
     std::cout << "Memory:    " << used << " / " << total << " GB (" << memoryPercent << "%)\n";
+    if (memoryPercent >= 90.0) std::cout << "WARNING: memory usage is at least 90%\n";
     double swapUsed, swapTotal; swap(swapUsed,swapTotal);
     std::cout << "Swap:      " << swapUsed << " / " << swapTotal << " GB (" << (swapTotal > 0 ? swapUsed / swapTotal * 100 : 0) << "%)\n";
     std::cout << "Load avg:  " << loadAverage() << " (1m / 5m / 15m)\n";
     double diskUsed = rootDiskUsage();
-    std::cout << "Disk /:    " << diskUsed << "% used\\n";
-    if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\n"
+    std::cout << "Disk /:    " << diskUsed << "% used\n";
+    if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\n";
     std::cout << "Uptime:    " << uptimeHours() << " hours\n";
     int processes = processCount();
     unsigned int threads = std::thread::hardware_concurrency();
