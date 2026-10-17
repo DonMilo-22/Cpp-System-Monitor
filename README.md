@@ -85,3 +85,8 @@ Consulta [CHANGELOG.md](CHANGELOG.md) para ver las actualizaciones.
 ## Actualización 2026-10-15
 
 - Added a warning when memory usage reaches 90%; also corrected the disk-usage line and completed its warning statement.
+
+
+## Actualización 2026-10-16
+
+- System uptime is now displayed as days, hours, and minutes instead of a decimal number of hours for easier reading.
