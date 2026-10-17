@@ -59,7 +59,13 @@ double rootDiskUsage() {
     return 100.0 * (1.0 - static_cast<double>(s.f_bavail) / s.f_blocks);
 }
 
-std::string uptimeLabel() {\n    std::ifstream f("/proc/uptime"); double seconds=0; f >> seconds;\n    long long total = static_cast<long long>(seconds);\n    long long days = total / 86400, hours = (total % 86400) / 3600, minutes = (total % 3600) / 60;\n    std::ostringstream out; out << days << "d " << hours << "h " << minutes << "m";\n    return out.str();\n}
+std::string uptimeLabel() {
+    std::ifstream f("/proc/uptime"); double seconds=0; f >> seconds;
+    long long total = static_cast<long long>(seconds);
+    long long days = total / 86400, hours = (total % 86400) / 3600, minutes = (total % 3600) / 60;
+    std::ostringstream out; out << days << "d " << hours << "h " << minutes << "m";
+    return out.str();
+}
 
 int processCount() {
     int count=0;
