@@ -94,7 +94,7 @@ void render(bool clear) {
     double diskUsed = rootDiskUsage();
     std::cout << "Disk /:    " << diskUsed << "% used\n";
     if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\n";
-    std::cout << "Uptime:    " << uptimeHours() << " hours\n";
+    std::cout << "Uptime:    " << uptimeLabel() << "\\n";
     int processes = processCount();
     unsigned int threads = std::thread::hardware_concurrency();
     std::cout << "Processes: " << processes << "\n";
