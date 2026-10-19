@@ -1,3 +1,8 @@
+
+
+## 2026-10-18
+
+- Added `tools/disk-space.cpp`, a standalone Linux helper that reports root filesystem capacity and warns at 90% usage.
 # Historial de cambios
 
 Entradas originales conservadas en inglés. Las fechas corresponden al historial existente; la última entrada no tenía fecha registrada.
