@@ -90,3 +90,15 @@ Consulta [CHANGELOG.md](CHANGELOG.md) para ver las actualizaciones.
 ## Actualización 2026-10-16
 
 - System uptime is now displayed as days, hours, and minutes instead of a decimal number of hours for easier reading.
+
+
+## Utilidad nueva: revisión rápida del disco raíz
+
+Además del monitor completo, puedes compilar una herramienta pequeña para consultar el espacio disponible en `/` y recibir una advertencia al llegar al 90% de uso:
+
+```bash
+g++ -std=c++17 tools/disk-space.cpp -o disk-space
+./disk-space
+```
+
+Requiere Linux y usa `statvfs`; no cambia archivos ni requiere permisos de administrador.
