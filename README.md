@@ -102,3 +102,15 @@ g++ -std=c++17 tools/disk-space.cpp -o disk-space
 ```
 
 Requiere Linux y usa `statvfs`; no cambia archivos ni requiere permisos de administrador.
+
+
+## New utility: RAM usage snapshot
+
+Compile and run a quick Linux RAM snapshot independent of the continuous monitor:
+
+```bash
+g++ -std=c++17 tools/memory-summary.cpp -o memory-summary
+./memory-summary
+```
+
+It reports total and available memory and warns at 90% usage. It reads `/proc/meminfo` only and does not change system settings.
