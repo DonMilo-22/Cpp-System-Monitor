@@ -1,5 +1,10 @@
 
 
+### 2026-10-19
+
+- Added `tools/memory-summary.cpp` for a standalone Linux RAM snapshot and high-usage warning.
+
+
 ## 2026-10-18
 
 - Added `tools/disk-space.cpp`, a standalone Linux helper that reports root filesystem capacity and warns at 90% usage.
