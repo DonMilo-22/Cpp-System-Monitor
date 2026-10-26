@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <chrono>
 #include <ctime>
 #include <filesystem>
@@ -100,7 +101,7 @@ void render(bool clear) {
     double diskUsed = rootDiskUsage();
     std::cout << "Disk /:    " << diskUsed << "% used\n";
     if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\n";
-    std::cout << "Uptime:    " << uptimeLabel() << "\\n";
+    std::cout << "Uptime:    " << uptimeLabel() << "\n";
     int processes = processCount();
     unsigned int threads = std::thread::hardware_concurrency();
     std::cout << "Processes: " << processes << "\n";
@@ -109,6 +110,6 @@ void render(bool clear) {
 
 int main(int argc, char** argv) {
     bool once=false, clear=true; int interval=1;
-    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
+    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--help"){ std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--help]\n"; return 0; } else if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
     do { render(clear); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
 }
