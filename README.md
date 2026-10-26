@@ -114,3 +114,12 @@ g++ -std=c++17 tools/memory-summary.cpp -o memory-summary
 ```
 
 It reports total and available memory and warns at 90% usage. It reads `/proc/meminfo` only and does not change system settings.
+
+
+## Actualización 2026-10-25
+
+- Added `--help` to print the supported command-line options without starting the live monitor. Also corrected the uptime output newline.
+
+```bash
+./monitor --help
+```
