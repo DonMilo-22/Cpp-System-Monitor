@@ -123,3 +123,7 @@ It reports total and available memory and warns at 90% usage. It reads `/proc/me
 ```bash
 ./monitor --help
 ```
+
+## Actualización 2026-10-30
+
+- Added `--version` to print `C++ System Monitor 1.1.0` and exit immediately.
