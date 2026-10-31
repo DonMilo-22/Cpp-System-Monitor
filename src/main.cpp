@@ -110,6 +110,6 @@ void render(bool clear) {
 
 int main(int argc, char** argv) {
     bool once=false, clear=true; int interval=1;
-    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--help"){ std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--help]\n"; return 0; } else if(a=="--version"){ std::cout << "C++ System Monitor 1.1.0\\n"; return 0; } else if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
+    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--help"){ std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--help]\n"; return 0; } else if(a=="--version"){ std::cout << "C++ System Monitor 1.1.0\n"; return 0; } else if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
     do { render(clear); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
 }
