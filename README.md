@@ -127,3 +127,7 @@ It reports total and available memory and warns at 90% usage. It reads `/proc/me
 ## Actualización 2026-10-30
 
 - Added `--version` to print `C++ System Monitor 1.1.0` and exit immediately.
+
+## Actualización 2026-11-02
+
+- Added `--warning-threshold PERCENT` to set the memory and root-disk warning level (valid range: 1-100). Example: `./monitor --warning-threshold 80 --once`.
