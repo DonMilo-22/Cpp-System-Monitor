@@ -78,7 +78,7 @@ int processCount() {
     return count;
 }
 
-void render(bool clear) {
+void render(bool clear, double warningThreshold) {
     double used,total; memory(used,total);
     char hostname[256]{};
     gethostname(hostname, sizeof(hostname));
@@ -94,13 +94,13 @@ void render(bool clear) {
     std::cout << "CPU threads: " << std::thread::hardware_concurrency() << "\n";
     double memoryPercent = total > 0 ? (used / total) * 100.0 : 0.0;
     std::cout << "Memory:    " << used << " / " << total << " GB (" << memoryPercent << "%)\n";
-    if (memoryPercent >= 90.0) std::cout << "WARNING: memory usage is at least 90%\n";
+    if (memoryPercent >= warningThreshold) std::cout << "WARNING: memory usage is at least 90%\n";
     double swapUsed, swapTotal; swap(swapUsed,swapTotal);
     std::cout << "Swap:      " << swapUsed << " / " << swapTotal << " GB (" << (swapTotal > 0 ? swapUsed / swapTotal * 100 : 0) << "%)\n";
     std::cout << "Load avg:  " << loadAverage() << " (1m / 5m / 15m)\n";
     double diskUsed = rootDiskUsage();
     std::cout << "Disk /:    " << diskUsed << "% used\n";
-    if (diskUsed >= 90.0) std::cout << "WARNING: root disk usage is at least 90%\n";
+    if (diskUsed >= warningThreshold) std::cout << "WARNING: root disk usage is at least 90%\n";
     std::cout << "Uptime:    " << uptimeLabel() << "\n";
     int processes = processCount();
     unsigned int threads = std::thread::hardware_concurrency();
@@ -109,7 +109,7 @@ void render(bool clear) {
 }
 
 int main(int argc, char** argv) {
-    bool once=false, clear=true; int interval=1;
-    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--help"){ std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--version] [--help]\n"; return 0; } else if(a=="--version"){ std::cout << "C++ System Monitor 1.1.0\n"; return 0; } else if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
-    do { render(clear); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
+    bool once=false, clear=true; int interval=1; double warningThreshold=90.0;
+    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--help"){ std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--version] [--help]\n"; return 0; } else if(a=="--version"){ std::cout << "C++ System Monitor 1.1.0\n"; return 0; } else if(a=="--warning-threshold"&&i+1<argc) warningThreshold=std::stod(argv[++i]); else if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
+    if(warningThreshold < 1.0 || warningThreshold > 100.0){ std::cerr << "Warning threshold must be between 1 and 100.\\n"; return 2; }\n    do { render(clear, warningThreshold); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
 }
