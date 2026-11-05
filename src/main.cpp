@@ -122,16 +122,16 @@ int main(int argc, char** argv) {
             return 0;
         } else if (a == "--warning-threshold" && i + 1 < argc) {
             try { warningThreshold = std::stod(argv[++i]); }
-            catch (...) { std::cerr << "Invalid warning threshold.\\n"; return 2; }
+            catch (...) { std::cerr << "Invalid warning threshold.\n"; return 2; }
         } else if (a == "--once") once = true;
         else if (a == "--no-clear") clear = false;
         else if (a == "--interval" && i + 1 < argc) {
             try { interval = std::max(1, std::stoi(argv[++i])); }
-            catch (...) { std::cerr << "Invalid interval.\\n"; return 2; }
+            catch (...) { std::cerr << "Invalid interval.\n"; return 2; }
         }
     }
     if (warningThreshold < 1.0 || warningThreshold > 100.0) {
-        std::cerr << "Warning threshold must be between 1 and 100.\\n";
+        std::cerr << "Warning threshold must be between 1 and 100.\n";
         return 2;
     }
     do {
