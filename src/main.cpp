@@ -109,7 +109,33 @@ void render(bool clear, double warningThreshold) {
 }
 
 int main(int argc, char** argv) {
-    bool once=false, clear=true; int interval=1; double warningThreshold=90.0;
-    for(int i=1;i<argc;i++){ std::string a=argv[i]; if(a=="--help"){ std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--warning-threshold PERCENT] [--version] [--help]\n"; return 0; } else if(a=="--version"){ std::cout << "C++ System Monitor 1.1.0\n"; return 0; } else if(a=="--warning-threshold"&&i+1<argc) warningThreshold=std::stod(argv[++i]); else if(a=="--once") once=true; else if(a=="--no-clear") clear=false; else if(a=="--interval"&&i+1<argc) interval=std::max(1,std::stoi(argv[++i])); }
-    if(warningThreshold < 1.0 || warningThreshold > 100.0){ std::cerr << "Warning threshold must be between 1 and 100.\\n"; return 2; }\n    do { render(clear, warningThreshold); if(!once) std::this_thread::sleep_for(std::chrono::seconds(interval)); } while(!once);
+    bool once = false, clear = true;
+    int interval = 1;
+    double warningThreshold = 90.0;
+    for (int i = 1; i < argc; i++) {
+        std::string a = argv[i];
+        if (a == "--help") {
+            std::cout << "Usage: monitor [--once] [--no-clear] [--interval SECONDS] [--warning-threshold PERCENT] [--version] [--help]\n";
+            return 0;
+        } else if (a == "--version") {
+            std::cout << "C++ System Monitor 1.1.0\n";
+            return 0;
+        } else if (a == "--warning-threshold" && i + 1 < argc) {
+            try { warningThreshold = std::stod(argv[++i]); }
+            catch (...) { std::cerr << "Invalid warning threshold.\\n"; return 2; }
+        } else if (a == "--once") once = true;
+        else if (a == "--no-clear") clear = false;
+        else if (a == "--interval" && i + 1 < argc) {
+            try { interval = std::max(1, std::stoi(argv[++i])); }
+            catch (...) { std::cerr << "Invalid interval.\\n"; return 2; }
+        }
+    }
+    if (warningThreshold < 1.0 || warningThreshold > 100.0) {
+        std::cerr << "Warning threshold must be between 1 and 100.\\n";
+        return 2;
+    }
+    do {
+        render(clear, warningThreshold);
+        if (!once) std::this_thread::sleep_for(std::chrono::seconds(interval));
+    } while (!once);
 }
