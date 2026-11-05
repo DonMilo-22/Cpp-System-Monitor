@@ -131,3 +131,7 @@ It reports total and available memory and warns at 90% usage. It reads `/proc/me
 ## Actualización 2026-11-02
 
 - Added `--warning-threshold PERCENT` to set the memory and root-disk warning level (valid range: 1-100). Example: `./monitor --warning-threshold 80 --once`.
+
+## Actualización 2026-11-04
+
+- Repaired the malformed `main()` block so warning-threshold validation flows correctly into the monitor loop. Invalid numeric values for the threshold or interval now produce a clear error instead of terminating with an uncaught conversion exception.
